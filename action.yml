@@ -32,6 +32,7 @@ runs:
       uses: aws-actions/amazon-ecr-login@v1.5.3
     - name: check release tag matches stage
       id: check-tag
+      shell: bash
       run: |
         echo "tag_matches=$(aws ecr describe-images --no-cli-pager --no-paginate --repository-name ${{inputs.ecr_repo_name}} --image-ids imageTag=${{inputs.image_id}} --query "length(imageDetails[].imageTags[?starts_with(@, '${{inputs.image_tag}}')][])")" >> "$GITHUB_OUTPUT"
     - name: check release tag
